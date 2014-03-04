@@ -1,0 +1,17 @@
+<% include ../header %>
+
+<header>
+	<h2>Delete Contatos</h2>
+</header>
+<section>
+	<form action="/contatos <%- id %>" method="post">
+		<input type="hidden" name="_method" value="delete">
+		<label>Nome: <% contato.nome %></label>
+		<label>E-mail:<% contato.email %> </label>
+		<button type="submit">Excluir</button>
+		<a href="/contato/<%-id %>/edit"></a>	
+	</form>
+</section>
+
+<% include ../footer %>
+<% include ../exit %>

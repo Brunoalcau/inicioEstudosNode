@@ -1,0 +1,46 @@
+<% include ../head %>
+<% include ../menu %>
+<% include ../header %>
+<header>
+ <h2></h2>
+</header>
+<section>
+	<form action="/contato" method="POST">
+		<div class="col-sm-6 col-md-4">
+			<input type="text" placeholder="Digite o nome" name="contato[nome]" class="form-control"/>
+			<br/>
+			<input type="text" placeholder="Digitar o email" name="contato[email]" class="form-control"/>
+			<br/>
+			<button type="submit" class="btn btn-primary">
+				<span class="glyphicon glyphicon-plus"></span>Cadastro
+			</button>
+		</div>
+		<div class="col-sm-6 col-md-4"></div>
+	</form>
+</section>
+<section>
+	<div class="">
+		<table class="table">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>E-mail</th>
+				<th>Ação</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% contatos.forEach(function(contato, index){ %>
+			<tr>
+				<td><% contato.nome %> </td>
+				<td><% contato.email %> </td>
+				<td>
+					<a href="/contato/<% index %>">Detalhes</a>
+				</td>
+			</tr>
+			<% }) %>
+		</tbody>
+	</table>
+	</div>
+</section>	
+<% include ../exit %>
+<% include ../footer %>

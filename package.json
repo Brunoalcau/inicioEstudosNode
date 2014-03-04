@@ -1,0 +1,17 @@
+{
+  "name": "ntalk",
+  "version": "0.0.1",
+  "description":"Agenda de contatos",
+  "private": false,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.4.8",
+    "ejs": "*",
+    "express-load":"1.1.8"
+  },
+  "devDependencies":{
+    "bower" : "*"
+  }
+}
