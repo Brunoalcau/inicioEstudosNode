@@ -9,7 +9,8 @@
   "dependencies": {
     "express": "3.4.8",
     "ejs": "*",
-    "express-load":"1.1.8"
+    "express-load":"1.1.8",
+    "socket.io":"*"
   },
   "devDependencies":{
     "bower" : "*"

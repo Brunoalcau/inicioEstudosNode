@@ -5,12 +5,14 @@
 	<h2>Delete Contatos</h2>
 </header>
 <section>
-	<form action="/contatos <%- id %>" method="post">
+	<form action="/contato/<%- id %>" method="post">
+
 		<input type="hidden" name="_method" value="delete">
-		<label>Nome: <% contato.nome %></label>
-		<label>E-mail:<% contato.email %> </label>
+		
+		<label>Nome: <%- contato.nome %></label>
+		<label>E-mail:<%- contato.email %> </label>
 		<button type="submit">Excluir</button>
-		<a href="/contato/<%-id %>/edit"></a>	
+		<a href="/contato/<%- id %>/edit"></a>	
 	</form>
 </section>
 

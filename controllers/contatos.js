@@ -3,35 +3,35 @@ module.exports = function(app){
 		index :function(req,res){
 			var usuario = req.session.usuario,
 				contatos = usuario.contatos,
-			param = {usuario:usuario, contatos:contatos};
+			params = {usuario:usuario, contatos:contatos};
 
-			res.render('contatos/index',param);
+			res.render('contatos/index',params);
 		},
 		create : function(req,res){
 			var usuario = req.session.usuario,
 				contato = req.body.contato;
-				console.log(contato);
 				usuario.contatos.push(contato);
 			res.redirect('/contatos');
 		},
 		show :function(req, res){
-			var  id =req.param.id,
+					
+			var  id = req.params.id,
 				 contato = req.session.usuario.contatos[id],
-				 param = {contato:contato,id:id};
+				 params = {contato:contato,id:id};				 
+			res.render('contatos/show',params);
 
-			res.render('/contatos/show',param);
 		},
 		edit :function(req,res){
 			var id =req.param.id,
 				contatos = req.session.usuario
 				contato = usuario.contatos[id],
-				param =
+				params =
 				{
 					usuario:usuario,
 					contato:contato,
 					id:id
 				}
-			res.render('/contato/:id/edit',param);
+			res.render('contato/:id/edit',params);
 		},
 		update : function(req,res){
 			var contato = req.body.contato;
@@ -40,9 +40,9 @@ module.exports = function(app){
 		},
 		destroy:function(req,res){
 			var usuario = req.session.usuario,
-				id = req.para.id;
+				id = req.params.id;
 			usuario.contatos.splice(id,1);
-			res.render('/contatos');
+			res.redirect('/contatos');
 		}
 	};
 	return ContatosController;
