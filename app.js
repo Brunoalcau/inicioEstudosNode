@@ -5,31 +5,48 @@ var express = require('express'),
 	server = require('http').createServer(app),
 	io    =  require('socket.io').listen(server);
 
-io.sockets.on('connection',function(client){
-	client.on('send-server',function(data){
-		var msg = "<b>"+data.nome +":<b>"+data.msg+"<br />";
-		client.emit('send-client',msg);
-		client.broadcast.emit('send-client',msg);
-	});
-});
+
+const KEY = 'ntalk.sid',SECRET = 'ntalk';
+var cookie = express.cookieParser(SECRET),
+	store = new express.session.MemoryStore(),
+	sessOpt = {secret:SECRET,key:KEY,store:store},
+	session = express.session(sessOpt);
 
 
 app.set('views',__dirname+'/views');
 app.set('view engine','ejs');
-app.use(express.cookieParser('ntalk'));
-app.use(express.session());
-app.use(express.json());
-app.use(express.urlencoded());
+app.use(cookie);
+app.use(express.bodyParser());
 app.use(express.methodOverride());
+//app.use(express.cookieParser('ntalk'));
+//app.use(express.session());
+//app.use(express.json());
+//app.use(express.urlencoded());
 app.use(app.router);
 app.use(express.static(__dirname+'/public'));
 app.use(error.notFound);
 app.use(error.serverErro);
 
+
+
+io.set('authorization',function(data,accept){
+	var sessioID = data.signedCookies[KEY];
+	cookie.get(sessioID,function(err,session){
+		if(err||session){
+			accept(null,false);
+		}else{
+			data.session = session;
+			accept(null,true);
+		}
+	});
+});
+
 load('models')
 	.then('controllers')
 	.then('routes')
 	.into(app);
+load('sockets')
+	.into(io);
 
 
 
