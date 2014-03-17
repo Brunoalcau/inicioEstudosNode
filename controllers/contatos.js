@@ -1,6 +1,7 @@
 module.exports = function(app){
 	var ContatosController = {
 		index :function(req,res){
+			console.log(req.session.usuario);
 			var usuario = req.session.usuario,
 				contatos = usuario.contatos,
 			params = {usuario:usuario, contatos:contatos};

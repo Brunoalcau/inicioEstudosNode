@@ -6,7 +6,7 @@ var express = require('express'),
 	io    =  require('socket.io').listen(server);
 
 
-const KEY = 'ntalk.sid',SECRET = 'ntalk';
+var KEY = 'ntalk.sid',SECRET = 'ntalk';
 var cookie = express.cookieParser(SECRET),
 	store = new express.session.MemoryStore(),
 	sessOpt = {secret:SECRET,key:KEY,store:store},
@@ -16,12 +16,13 @@ var cookie = express.cookieParser(SECRET),
 app.set('views',__dirname+'/views');
 app.set('view engine','ejs');
 app.use(cookie);
-app.use(express.bodyParser());
+app.use(session);
+app.use(express.json());
+app.use(express.urlencoded());
+//app.use(express.bodyParser());
 app.use(express.methodOverride());
 //app.use(express.cookieParser('ntalk'));
 //app.use(express.session());
-//app.use(express.json());
-//app.use(express.urlencoded());
 app.use(app.router);
 app.use(express.static(__dirname+'/public'));
 app.use(error.notFound);
@@ -30,14 +31,16 @@ app.use(error.serverErro);
 
 
 io.set('authorization',function(data,accept){
-	var sessioID = data.signedCookies[KEY];
-	cookie.get(sessioID,function(err,session){
-		if(err||session){
-			accept(null,false);
-		}else{
-			data.session = session;
-			accept(null,true);
-		}
+	cookie(data, {},function(err) {
+		var sessionID = data.signedCookies[KEY];
+		store.get(sessionID,function(err,session){
+			if(err||!sessionID){
+				accept(null,false);
+			}else{
+				data.session = session;
+				accept(null,true);
+			}
+		});
 	});
 });
 

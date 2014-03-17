@@ -1,23 +1,21 @@
 <% include ../head %>
 <% include ../header %>
-<% include ../menu %>
-
-			<div class="col-sm-6 col-md-4"></div>
-			<div class="well col-sm-6 col-md-4 pager">
-				<header>
-					<h1>Ntalk</h1>
-					<h4>Bem-vindos</h4>
-				</header>
-				<section>
-					<form action="/entrar" method="post">
-						
-						<input type="text" class="form-control" name="usuario[nome]" placeholder="Digite seu nome"/> 
-						<br>
-						<input type="text" class="form-control" name="usuario[email]" placeholder="Digite seu email"/> 
-						<br>
-						<button class="btn btn-primary" type="submit">
-							<span class="glyphicon glyphicon-star"></span> Entrar
-						</button> 
-					</form>
-				</section>
+		<div class="col-sm-6 col-md-4"></div>
+		<div class="well col-sm-6 col-md-4 pager">
+			<header>
+				<h1>Ntalk</h1>
+				<h4>Bem-vindos</h4>
+			</header>
+			<section>
+				<form action="/entrar" method="post">
+					
+					<input type="text" class="form-control" name="usuario[nome]" placeholder="Digite seu nome"/> 
+					<br>
+					<input type="text" class="form-control" name="usuario[email]" placeholder="Digite seu email"/> 
+					<br>
+					<button class="btn btn-primary" type="submit">
+						<span class="glyphicon glyphicon-star"></span> Entrar
+					</button> 
+				</form>
+			</section>
 <% include ../footer %>

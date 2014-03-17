@@ -1,35 +1,30 @@
-<%include ../head %>
+<% include ../head %>
 <% include ../menu %>
 <% include ../header %>
-
 <script type="text/javascript" src="/socket.io/socket.io.js" ></script>
 <script type="text/javascript">
-	var socket = io.connect('http://192.168.0.101:3000');
+	var socket = io.connect('http://localhost:3000');
 	socket.on('send-client',function(msg){
 		document.getElementById('chat').innerHTML += msg;
 	});
 
 	var enviar = function(){
-		var nome = document.getElementById('nome').value;
 		var msg = document.getElementById('msg').value;
 		if(msg){
-			socket.emit('send-server',{nome:nome,msg:msg});
+			socket.emit('send-server',{msg:msg});
 			document.getElementById('msg').value ='';	
 		}		
 	}	
 
 </script>
-<header>
-	<h2>
-		Chat 
-	</h2>
-</header>	
-
+	<header>
+		<h2>
+			Chat 
+		</h2>
+	</header>	
 <section>
-
 <div class="col-lg-6 well">
 	<pre id="chat"></pre>	
-	
 		<div class="input-group">
 			<input type="text" id="msg" placeholder="Mensagem" class="form-control"> 
 			<span class="input-group-btn">
@@ -37,7 +32,5 @@
 			</span>		
 		</div>
 	</div>
-	
 </section>
-
 <% include ../footer %>
