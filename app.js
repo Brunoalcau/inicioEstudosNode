@@ -26,6 +26,7 @@ app.use(error.serverErro);
 io.set('authorization',function(data,accept){
 	cookie(data, {},function(err) {
 		var sessionID = data.signedCookies[KEY];
+		console.log("log:"+data);
 		store.get(sessionID,function(err,session){
 			if(err||!sessionID){
 				accept(null,false);
