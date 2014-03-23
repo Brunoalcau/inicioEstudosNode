@@ -37,7 +37,7 @@
 					<a href="/contato/<%- index %>">Detalhes</a>
 				</td>
 				<td>
-					<a href="/chat/<%- contato.email %>">Conversa</a>
+					<a href="/chat/<%- contato.email %>" id="chat_<%- contato.email %>" class="btn btn-success">Conversa</a>
 				</td>
 			</tr>
 			<% }) %>
@@ -45,5 +45,6 @@
 	</table>
 	</div>
 </section>	
+<% include notify_script %>
 <% include ../exit %>
 <% include ../footer %>
