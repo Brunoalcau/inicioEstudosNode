@@ -18,11 +18,16 @@ module.exports = function (io) {
 			client.join(sala);
 		});
 
+		client.on('create-chat',function(){
+			client.get('sala',function(err,sala){
+				var data = {email:usuario.email,sala:sala}
+				client.broadcast.emit('new-message',data);
+			});
+		});
+
 		client.on('send-server',function(data){			
 			var msg = '<b>'+ usuario.nome + ':</b>' + data.msg +'<br />'
 			client.get('sala',function(err,sala){				
-				var data = {email:usuario.email,sala:sala};
-				client.broadcast.emit('new-message',data);
 				sockets.in(sala).emit('send-client',msg);
 			});			
 		});	
