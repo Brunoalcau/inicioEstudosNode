@@ -20,6 +20,7 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(__dirname+'/public'));
+app.use(express.static(__dirname+'/bower_components'));
 app.use(error.notFound);
 app.use(error.serverErro);
 
