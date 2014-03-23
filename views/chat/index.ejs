@@ -1,6 +1,22 @@
 <% include ../head %>
 <% include ../menu %>
 <% include ../header %>
+<script type="text/javascript" src="/socket.io/socket.io.js" ></script>
+<script type="text/javascript">
+	var socket = io.connect('http://localhost:3000');
+	socket.on('send-client',function(msg){
+		document.getElementById('chat').innerHTML += msg;
+	});
+
+	var enviar = function(){
+		var msg = document.getElementById('msg').value;
+		if(msg){
+			socket.emit('send-server',{msg:msg});
+			document.getElementById('msg').value ='';	
+		}		
+	}	
+
+</script>
 	<header>
 		<h2>
 			Chat 
@@ -8,14 +24,13 @@
 	</header>	
 <section>
 <div class="col-lg-6 well">
-	<pre id="chat"></pre>	
+	<pre id="chat"></pre>
 		<div class="input-group">
 			<input type="text" id="msg" placeholder="Mensagem" class="form-control"> 
 			<span class="input-group-btn">
-				<button onClick="enviar()"  type="button" class="btn btn-success">Enviar</button>
-				<button onClick=""  type="button" class="btn btn-danger">Sair do chat</button>
+				<button onClick="enviar()"  type="button" class="btn btn-default">Enviar</button>
 			</span>		
 		</div>
 	</div>
 </section>
-<% include chat_script %>
+<% include ../footer %>
