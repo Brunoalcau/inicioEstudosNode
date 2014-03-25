@@ -1,6 +1,6 @@
 {
   "name": "ntalk",
-  "version": "1.0.0",
+  "version": "0.0.1",  
   "dependencies": {
     "jQuery": "*",
     "bootstrap":">=3.0.0"
