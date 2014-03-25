@@ -5,26 +5,37 @@
  <h2></h2>
 </header>
 <section>
-	<form action="/contato" method="POST">
-		<div class="col-sm-6 col-md-4">
-			<input type="text" placeholder="Digite o nome" name="contato[nome]" class="form-control"/>
-			<br/>
-			<input type="text" placeholder="Digitar o email" name="contato[email]" class="form-control"/>
-			<br/>
-			<button type="submit" class="btn btn-primary">
-				<span class="glyphicon glyphicon-plus"></span>Cadastro
-			</button>
-		</div>
-		<div class="col-sm-6 col-md-4"></div>
-	</form>
+	<div class="">
+	</div>
+	
+	<div class="col-sm-4 col-md-12">
+		<div class="well">
+		<form action="/contato" method="POST" role="form" class="form-inline">			
+				<div class="form-group">
+					<label class="sr-only" for="usuario-contato">Usuario</label>
+					<input type="text"  placeholder="Digite o nome" name="contato[nome]" id="usuario-contato" class="form-control"/>				
+				</div>
+				<div class="form-group">
+					<label class="sr-only" for="email-contato">Email</label>
+					<input type="text" placeholder="Digitar o email" name="contato[email]" id="email-contato" class="form-control"/>				
+				</div>
+				<button type="submit" class="btn btn-primary">
+					<span class="glyphicon glyphicon-plus"></span>Cadastro
+				</button>		
+			
+		</form>
+	</div>
+	</div>	
 </section>
 <section>
-	<div class="">
+	<div class="col-sm-6 col-md-12">
+	<div class="panel panel-default">
 		<table class="table">
 		<thead>
 			<tr>
 				<th>Nome</th>
 				<th>E-mail</th>
+				<th>Status</th>
 				<th>Ação</th>
 			</tr>
 		</thead>
@@ -33,6 +44,7 @@
 			<tr>
 				<td><%- contato.nome %> </td>
 				<td><%- contato.email %> </td>
+				<td><span id="notify_<%- contato.email %>" class="label label-danger">Offline</span></td>
 				<td>
 					<a href="/contato/<%- index %>" class="btn btn-info">Detalhes</a>
 					<a href="/chat/<%- contato.email %>" id="chat_<%- contato.email %>" class="btn btn-success">Conversa</a>
@@ -42,6 +54,7 @@
 		</tbody>
 	</table>
 	</div>
+</div>
 </section>	
 <% include notify_script %>
 <% include ../exit %>

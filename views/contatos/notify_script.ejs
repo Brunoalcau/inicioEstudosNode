@@ -1,9 +1,47 @@
 <script src="/socket.io/socket.io.js"></script>
 <script >
 	var socket =  io.connect('http://localhost:3000');
-	socket.on('new-message',function(data){
+
+	var notify = function(data){
+		
+		var id = 'notify_'+data.el,
+			notify = document.getElementById(id);	
+		if(notify){
+			notify.textContent = data.msg;
+			notify.className = data.classe;
+		}			
+	}
+
+	socket.on('notify-onlines',function(email){
+		var opts = {
+			el:email,
+			msg: 'Online',
+			classe:'label label-success'
+		};
+		notify(opts);
+	});
+	socket.on('notify-offline',function(email){
+		var opts = {
+			el:email,
+			msg:'Offline',
+			classe:'label label-danger'
+		};		
+		notify(opts);
+	});
+
+	socket.on('new-message',function(email){
+		
+		var opts = {
+			el:email,
+			msg:'Messagem',
+			classe:'label label-warning'
+		};
+
+		notify(opts);
+	});
+
+	socket.on('new-chat',function(data){
 		var chat = document.getElementById('chat_'+data.email);
-		chat.href += '?' + data.sala;		
-		console.log(data.sala);
+		chat.href += '?' + data.sala;
 	});
 </script>
