@@ -1,18 +1,23 @@
 <% include ../head %>
 <% include ../header %>
-
+<% include ../menu %>
 <header>
 	<h2>Delete Contatos</h2>
 </header>
 <section>
-	<form action="/contato/<%- contato._id %>" method="post">
-
-		<input type="hidden" name="_method" value="delete">
+	
+	<form action="/contato/<%- contato._id %>" method="post" role="form" class="col-xs-4 col-md-12">
+		<div class="form-group ">
+			<input type="hidden" name="_method" value="delete">		
+			<label class="form-control">Nome: <%- contato.nome %></label>			
+		</div>
+		<div class="form-group">
+			<label class="form-control">E-mail:<%- contato.email %> </label>
+			<button type="submit" class="btn btn-danger">Excluir</button>		
+			<a href="/contatos/<%- contato._id %>/edit" class="btn btn-info">edit</a>	
+		</div>
 		
-		<label>Nome: <%- contato.nome %></label>
-		<label>E-mail:<%- contato.email %> </label>
-		<button type="submit">Excluir</button>
-		<a href="/contatos/<%- contato._id %>/edit" class="btn btn-info">edit</a>	
+
 	</form>
 </section>
 
