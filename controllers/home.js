@@ -4,14 +4,35 @@ module.exports = function(app){
 			res.render('home/index');
 		},
 		login:function(req,res){
-			var usuario = req.body.usuario;
-			if(usuario.nome && usuario.email){
-				usuario['contatos']=[];
-				req.session.usuario = usuario;
-				res.redirect('/contatos');
-			}else{
-				res.redirect('/');
-			}
+			var Usuario = app.models.usuario;
+			var query = {email: req.body.usuario.email}
+
+			Usuario.findOne(query)
+				   .select('nome email')
+				   .exec(function(err,usuario) {
+				   	console.log(usuario);
+				   		if (usuario) {
+				   			req.session.usuario = usuario;
+				   			res.redirect('/contatos');
+				   		} else {
+				   			Usuario.create(req.body.usuario,function(err,usuario){
+				   				if(err){
+				   					res.redirect('/');
+				   				}else{
+				   					req.session.usuario = usuario;
+				   					res.redirect('/contatos');
+				   				}
+				   			});
+				   		}
+				   });
+			// var usuario = req.body.usuario;
+			// if(usuario.nome && usuario.email){
+			// 	usuario['contatos']=[];
+			// 	req.session.usuario = usuario;
+			// 	res.redirect('/contatos');
+			// }else{
+			// 	res.redirect('/');
+			// }
 		},
 		logout:function(req,res){
 			req.session.destroy();

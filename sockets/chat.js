@@ -1,7 +1,7 @@
 module.exports = function (io) {
 	var crypto = require('crypto'),		
 		sockets = io.sockets;
-	sockets.on('connection',function(client){
+	sockets.on('connection',function(client){		
 		var session = client.handshake.session,
 			usuario = session.usuario;		
 
@@ -15,8 +15,7 @@ module.exports = function (io) {
 			});
 		});
 		
-		client.on('join',function(sala){
-			console.log(sala);
+		client.on('join',function(sala){			
 			if(sala){
 				sala = sala.replace('?','');
 			}else{

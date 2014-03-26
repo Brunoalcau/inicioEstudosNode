@@ -3,7 +3,10 @@ var express = require('express'),
 	load = require('express-load'),
 	error = require('./middleware/erro'),
 	server = require('http').createServer(app),
-	io    =  require('socket.io').listen(server);
+	io    =  require('socket.io').listen(server),
+	mongoose = require('mongoose');
+
+	global.db = mongoose.connect('mongodb://localhost/ntalk');
 
 var KEY = 'ntalk.sid',SECRET = 'ntalk';
 var cookie = express.cookieParser(SECRET),
@@ -26,12 +29,12 @@ app.use(error.serverErro);
 
 io.set('authorization',function(data,accept){
 	cookie(data, {},function(err) {
-		var sessionID = data.signedCookies[KEY];		
+		var sessionID = data.signedCookies[KEY];				
 		store.get(sessionID,function(err,session){
 			if(err||!sessionID){
 				accept(null,false);
 			}else{
-				data.session = session;
+				data.session = session;				
 				accept(null,true);
 			}
 		});
