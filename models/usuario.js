@@ -3,7 +3,12 @@ module.exports = function(app){
 	var Schema = require('mongoose').Schema,
 		contato = Schema({
 			nome:'String',
-			email:'String'
+			email:{
+				type:'String',
+				index:{
+					unique:true
+				}
+			}
 		}),
 		usuario = Schema({
 			nome :{

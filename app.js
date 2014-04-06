@@ -5,7 +5,6 @@ var express = require('express'),
 	server = require('http').createServer(app),
 	io    =  require('socket.io').listen(server),
 	mongoose = require('mongoose');
-
 	global.db = mongoose.connect('mongodb://localhost/ntalk');
 
 var KEY = 'ntalk.sid',SECRET = 'ntalk';

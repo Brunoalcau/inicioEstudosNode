@@ -1,12 +1,14 @@
 module.exports = function (io) {
-	var crypto = require('crypto'),		
+	var crypto = require('crypto'),	
+		redis = require('redis').createClient(),	
 		sockets = io.sockets;
 	sockets.on('connection',function(client){		
 		var session = client.handshake.session,
 			usuario = session.usuario;		
 
 		client.set('email',usuario.email);
-		var onlines = sockets.clients();		
+		var onlines = sockets.clients();
+
 		onlines.forEach(function(online){
 			online = sockets.sockets[online.id];
 			online.get('email',function(err,email){
@@ -25,12 +27,23 @@ module.exports = function (io) {
 			}			
 			client.set('sala',sala);
 			client.join(sala);
+
+			var msg = '<b>'+ usuario.nome + ':</b>Entrou<br>';
+
+			redis.lpush(sala,msg,function(erro,res){
+				redis.lrange(sala,0,-1,function(erro,msgs){
+					msgs.forEach(function(msg){
+						sockets.in(sala).emit('send-client',msg);
+					});
+				});
+			});
 		});
 
-		client.on('create-chat',function(){
-			client.get('sala',function(err,sala){
+		client.on('create-chat',function(){			
+			client.get('sala',function(err,sala){				
 				var data = {
-					email:usuario.email,sala:sala
+					email:usuario.email,
+					sala:sala
 				};
 				client.broadcast.emit('new-chat',data);
 			});
@@ -43,6 +56,7 @@ module.exports = function (io) {
 				sockets.in(sala).emit('send-client',msg);
 			});			
 		});	
+
 		client.on('disconnect',function(){
 			client.get('sala',function(erro,sala){
 				client.broadcast.emit('notify-offline',usuario.email);

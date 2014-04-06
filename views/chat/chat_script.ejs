@@ -2,10 +2,13 @@
 <script>
 	var socket = io.connect('http://localhost:3000');
 	socket.emit('join', window.location.search);
+	
 	socket.emit('create-chat');
+
 	socket.on('send-client',function(msg){
 		document.getElementById('chat').innerHTML += msg;
 	});		
+	
 	var enviar = function(){
 		var msg = document.getElementById('msg').value;
 		if(msg){
