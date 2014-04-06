@@ -12,7 +12,7 @@ module.exports = function(app){
 		create : function(req,res) {
 			var _id = req.session.usuario._id;
 			Usuario.findById(_id,function(err, usuario){
-				var contato = req.body.contato;				
+				var contato = req.body.contato;
 				usuario.contatos.push(contato);
 				usuario.save(function(){
 					res.redirect('/contatos');

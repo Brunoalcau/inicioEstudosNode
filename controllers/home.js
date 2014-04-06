@@ -10,8 +10,7 @@ module.exports = function(app){
 			};
 			Usuario.findOne(query)
 				   .select('nome email')
-				   .exec(function(err,usuario) {
-				   	console.log(usuario);
+				   .exec(function(err,usuario) {				   	
 				   		if (usuario) {
 				   			req.session.usuario = usuario;
 				   			res.redirect('/contatos');
