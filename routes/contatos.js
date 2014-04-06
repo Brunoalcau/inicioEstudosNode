@@ -7,4 +7,4 @@ module.exports = function(app){
 	app.get('/contatos/:id/edit',autetificar,contatos.edit);
 	app.put('/contato/:id',autetificar,contatos.update);
 	app.del('/contato/:id',autetificar,contatos.destroy);
-}
+};

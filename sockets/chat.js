@@ -8,7 +8,7 @@ module.exports = function (io) {
 		client.set('email',usuario.email);
 		var onlines = sockets.clients();		
 		onlines.forEach(function(online){
-			var online = sockets.sockets[online.id];
+			online = sockets.sockets[online.id];
 			online.get('email',function(err,email){
 				client.emit('notify-onlines',email);
 				client.broadcast.emit('notify-onlines',email);
@@ -29,13 +29,15 @@ module.exports = function (io) {
 
 		client.on('create-chat',function(){
 			client.get('sala',function(err,sala){
-				var data = {email:usuario.email,sala:sala}
+				var data = {
+					email:usuario.email,sala:sala
+				};
 				client.broadcast.emit('new-chat',data);
 			});
 		});
 
 		client.on('send-server',function(data){			
-			var msg = '<b>'+ usuario.nome + ':</b>' + data.msg +'<br />'
+			var msg = '<b>'+ usuario.nome + ':</b>' + data.msg +'<br />';
 			client.get('sala',function(err,sala){				
 				client.broadcast.emit('new-message',usuario.email);
 				sockets.in(sala).emit('send-client',msg);
@@ -48,4 +50,4 @@ module.exports = function (io) {
 			});
 		});
 	});
-}
+};

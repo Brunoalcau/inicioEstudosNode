@@ -7,4 +7,4 @@ module.exports = function(app){
 	app.get('/',home.index);
 	app.post('/entrar',home.login);
 	app.get('/sair',home.logout);
-}
+};

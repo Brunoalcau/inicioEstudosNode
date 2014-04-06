@@ -24,7 +24,9 @@ module.exports = function(app){
 			Usuario.findById(_id,function(err,usuario){
 				var contatoId = req.params.id,
 					contato = usuario.contatos.id(contatoId),
-					result = {contato:contato}
+					result = { 
+						contato:contato 
+					};
 				res.render('contatos/show',result);		
 			});				 
 

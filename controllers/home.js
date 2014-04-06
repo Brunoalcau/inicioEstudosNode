@@ -5,8 +5,9 @@ module.exports = function(app){
 		},
 		login:function(req,res){
 			var Usuario = app.models.usuario;
-			var query = {email: req.body.usuario.email}
-
+			var query = {
+				email: req.body.usuario.email
+			};
 			Usuario.findOne(query)
 				   .select('nome email')
 				   .exec(function(err,usuario) {
@@ -25,14 +26,6 @@ module.exports = function(app){
 				   			});
 				   		}
 				   });
-			// var usuario = req.body.usuario;
-			// if(usuario.nome && usuario.email){
-			// 	usuario['contatos']=[];
-			// 	req.session.usuario = usuario;
-			// 	res.redirect('/contatos');
-			// }else{
-			// 	res.redirect('/');
-			// }
 		},
 		logout:function(req,res){
 			req.session.destroy();
